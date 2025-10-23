@@ -12,6 +12,13 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<IdeaResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [copySuccess, setCopySuccess] = useState(false);
+
+  const exampleIdeas = [
+    'AI-powered meal planning app that generates recipes based on what\'s in your fridge',
+    'Monthly subscription box delivering artisanal coffee from different countries',
+    'B2B SaaS platform for small businesses to manage inventory and suppliers'
+  ];
 
   const handleSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -50,38 +57,123 @@ export default function Home() {
     }
   };
 
+  const handleCopyAnalysis = async () => {
+    if (!result) return;
+    try {
+      await navigator.clipboard.writeText(`${result.analysis}\n\nScore: ${result.score}/100`);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
+
+  const handleReset = () => {
+    setResult(null);
+    setIdea('');
+    setError(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-background text-text">
-      <main className="container mx-auto px-4 py-16 max-w-4xl">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-text to-accent bg-clip-text text-transparent">
-            IdeaChecker
-          </h1>
-          <p className="text-xl text-textSecondary max-w-2xl mx-auto">
-            Validate your next business idea instantly with honest, brutal feedback
-          </p>
+      <main className="container mx-auto px-4 py-12 md:py-20 max-w-5xl">
+        {/* Enhanced Hero Section */}
+        <div className="relative mb-20">
+          {/* Gradient Background Blur */}
+          <div className="absolute inset-0 -top-10 bg-gradient-to-r from-purple-500/10 via-blue-500/10 to-pink-500/10 rounded-3xl blur-3xl" />
+          
+          <div className="relative text-center">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/30 rounded-full backdrop-blur-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+              </span>
+              <span className="text-sm font-semibold bg-gradient-to-r from-purple-300 to-blue-300 bg-clip-text text-transparent">
+                AI-Powered Business Validation
+              </span>
+            </div>
+
+            {/* Main Heading */}
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent leading-tight">
+              Stop Guessing.<br />Start Validating.
+            </h1>
+
+            {/* Subheading */}
+            <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-4 leading-relaxed">
+              Get brutally honest, AI-powered feedback on your business idea in <span className="text-white font-semibold">under 30 seconds</span>
+            </p>
+            <p className="text-base text-gray-500 max-w-2xl mx-auto">
+              No fluff. No sugar-coating. Just the truth you need to hear before you waste time and money.
+            </p>
+          </div>
+        </div>
+
+        {/* Stats Section */}
+        <div className="grid grid-cols-3 gap-4 md:gap-8 mb-16 max-w-3xl mx-auto">
+          <div className="text-center p-4 bg-backgroundSecondary/50 border border-gray-700/50 rounded-2xl backdrop-blur-sm">
+            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-1">12K+</div>
+            <div className="text-xs md:text-sm text-gray-400">Ideas Validated</div>
+          </div>
+          <div className="text-center p-4 bg-backgroundSecondary/50 border border-gray-700/50 rounded-2xl backdrop-blur-sm">
+            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-1">&lt;30s</div>
+            <div className="text-xs md:text-sm text-gray-400">Average Time</div>
+          </div>
+          <div className="text-center p-4 bg-backgroundSecondary/50 border border-gray-700/50 rounded-2xl backdrop-blur-sm">
+            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-1">GPT-4</div>
+            <div className="text-xs md:text-sm text-gray-400">Powered</div>
+          </div>
         </div>
 
         {/* Input Form */}
         <form onSubmit={handleSubmit} className="mb-12">
           <div className="space-y-4">
+            {/* Example Ideas */}
+            <div className="mb-4">
+              <p className="text-sm text-gray-400 mb-3 font-medium">💡 Try an example:</p>
+              <div className="flex flex-wrap gap-2">
+                {exampleIdeas.map((example, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setIdea(example)}
+                    disabled={loading}
+                    className="px-4 py-2 bg-gray-800/50 hover:bg-gray-700/50 border border-gray-600/50 rounded-lg text-sm text-gray-300 transition-all hover:border-gray-500 disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm"
+                  >
+                    {example.length > 50 ? example.substring(0, 50) + '...' : example}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <textarea
               value={idea}
               onChange={(e) => setIdea(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Describe your business idea in detail... (Press Ctrl+Enter to submit)"
-              className="w-full p-6 text-lg bg-backgroundSecondary border border-gray-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-none transition-all duration-300 placeholder-gray-400"
+              placeholder="Describe your business idea in detail... Be specific about what problem you're solving and who your customers are. (Press Ctrl+Enter to submit)"
+              className="w-full p-6 text-lg bg-backgroundSecondary border border-gray-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none transition-all duration-300 placeholder-gray-500"
               rows={6}
               disabled={loading}
             />
-            <div className="flex justify-end">
+            <div className="flex justify-between items-center">
+              <p className="text-sm text-gray-500">
+                {idea.trim().length < 10 ? 'At least 10 characters required' : `${idea.trim().length} characters`}
+              </p>
               <button
                 type="submit"
                 disabled={loading || !idea.trim()}
-                className="px-8 py-4 bg-white text-black rounded-xl font-semibold hover:bg-gray-100 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-lg shadow-lg"
+                className="px-8 py-4 bg-white text-black rounded-xl font-semibold hover:bg-gray-100 hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 text-lg shadow-lg"
               >
-                {loading ? 'Analyzing...' : 'Check My Idea'}
+                {loading ? (
+                  <span className="inline-flex items-center gap-2">
+                    <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Analyzing...
+                  </span>
+                ) : 'Check My Idea →'}
               </button>
             </div>
           </div>
@@ -149,6 +241,39 @@ export default function Home() {
                     </p>
                   ))}
                 </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center pt-6 border-t border-gray-700">
+                <button
+                  onClick={handleCopyAnalysis}
+                  className="px-6 py-3 bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-xl font-semibold transition-all hover:scale-105 flex items-center justify-center gap-2"
+                >
+                  {copySuccess ? (
+                    <>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Copied!
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                      </svg>
+                      Copy Analysis
+                    </>
+                  )}
+                </button>
+                <button
+                  onClick={handleReset}
+                  className="px-6 py-3 bg-white text-black hover:bg-gray-100 rounded-xl font-semibold transition-all hover:scale-105 flex items-center justify-center gap-2"
+                >
+                  Check Another Idea
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
