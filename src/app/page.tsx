@@ -75,6 +75,35 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const formatAnalysis = (text: string) => {
+    const sections = text.split(/\*\*([^*]+):\*\*/g);
+    const formatted = [];
+    
+    for (let i = 0; i < sections.length; i++) {
+      if (i === 0 && sections[i].trim()) {
+        // Introduction paragraph
+        formatted.push({ type: 'intro', content: sections[i].trim() });
+      } else if (i % 2 === 1) {
+        // Section header
+        const header = sections[i];
+        const content = sections[i + 1]?.trim() || '';
+        
+        const sectionIcons: { [key: string]: string } = {
+          'Market Opportunity': '📊',
+          'Time & Effort': '⏱️',
+          'Competition': '⚔️',
+          'Rating': '⭐',
+        };
+        
+        const icon = sectionIcons[header] || '▸';
+        formatted.push({ type: 'section', header, content, icon });
+        i++; // Skip next iteration since we consumed content
+      }
+    }
+    
+    return formatted;
+  };
+
   return (
     <div className="min-h-screen bg-background text-text">
       <main className="container mx-auto px-4 py-12 md:py-20 max-w-5xl">
@@ -250,14 +279,28 @@ export default function Home() {
 
             {/* Analysis Content */}
             <div className="p-8">
-              <div className="prose prose-invert prose-lg max-w-none">
-                <div className="text-gray-300 leading-relaxed space-y-4">
-                  {result.analysis.split('\n\n').map((paragraph, idx) => (
-                    <p key={idx} className="text-base leading-7">
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
+              <div className="space-y-6">
+                {formatAnalysis(result.analysis).map((section, idx) => {
+                  if (section.type === 'intro') {
+                    return (
+                      <div key={idx} className="text-gray-300 text-base leading-7 pb-4 border-b border-gray-700/50">
+                        {section.content}
+                      </div>
+                    );
+                  }
+                  
+                  return (
+                    <div key={idx} className="bg-gray-800/30 rounded-xl p-5 border border-gray-700/50">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-2xl">{section.icon}</span>
+                        <h3 className="text-lg font-bold text-white">{section.header}</h3>
+                      </div>
+                      <p className="text-gray-300 text-base leading-7">
+                        {section.content}
+                      </p>
+                    </div>
+                  );
+                })}
               </div>
 
               {/* Action Buttons */}
