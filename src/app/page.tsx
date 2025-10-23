@@ -13,9 +13,9 @@ export default function Home() {
   const [result, setResult] = useState<IdeaResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!idea.trim()) return;
+  const handleSubmit = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (!idea.trim() || loading) return;
 
     setLoading(true);
     setError(null);
@@ -43,6 +43,13 @@ export default function Home() {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-text">
       <main className="container mx-auto px-4 py-16 max-w-4xl">
@@ -58,22 +65,25 @@ export default function Home() {
 
         {/* Input Form */}
         <form onSubmit={handleSubmit} className="mb-12">
-          <div className="relative">
+          <div className="space-y-4">
             <textarea
               value={idea}
               onChange={(e) => setIdea(e.target.value)}
-              placeholder="Describe your business idea in detail..."
+              onKeyDown={handleKeyDown}
+              placeholder="Describe your business idea in detail... (Press Ctrl+Enter to submit)"
               className="w-full p-6 text-lg bg-backgroundSecondary border border-gray-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-none transition-all duration-300 placeholder-gray-400"
               rows={6}
               disabled={loading}
             />
-            <button
-              type="submit"
-              disabled={loading || !idea.trim()}
-              className="absolute bottom-4 right-4 px-8 py-3 bg-accent text-background rounded-xl font-semibold hover:bg-accentHover transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? 'Analyzing...' : 'Check Idea'}
-            </button>
+            <div className="flex justify-end">
+              <button
+                type="submit"
+                disabled={loading || !idea.trim()}
+                className="px-8 py-4 bg-white text-black rounded-xl font-semibold hover:bg-gray-100 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-lg shadow-lg"
+              >
+                {loading ? 'Analyzing...' : 'Check My Idea'}
+              </button>
+            </div>
           </div>
         </form>
 
