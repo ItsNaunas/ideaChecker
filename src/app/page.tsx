@@ -344,7 +344,7 @@ export default function Home() {
           <p className="text-textSecondary mb-4">
             If your idea comes back strong, build it before somebody else does.
           </p>
-          <a
+          {/* <a
             href="https://project67-six.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
@@ -354,7 +354,7 @@ export default function Home() {
             <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
-          </a>
+          </a> */}
         </footer>
       </main>
     </div>

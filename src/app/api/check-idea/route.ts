@@ -51,7 +51,7 @@ Instructions:
    - Provide clear reasoning for the rating
 
 6. CLOSING TONE (match to rating):
-   - Rating 7.0-10: "This is a seriously strong idea — you've just uncovered something with real potential. With the right strategy and execution, you could turn this into a 6–7 figure business. Beat others to it, follow through, and it won't just stay an idea — THIS could be your big break. Unfortunately, we can't help you progress as we only brutally validate ideas (congrats on passing)… but if there's anybody who can get you there — it's these guys: https://project67-six.vercel.app/"
+   - Rating 7.0-10: "This is a seriously strong idea — you've just uncovered something with real potential. With the right strategy and execution, you could turn this into a 6–7 figure business. Beat others to it, follow through, and it won't just stay an idea — THIS could be your big break."
    
    - Rating 4.0-6.9: "This idea has real potential — but it's not there yet. You're close to something workable, but the market, competition, or execution risk means it needs refining before it can hit 6–7 figures. Don't scrap it — sharpen it. With the right angle or positioning, this could become something serious."
    
