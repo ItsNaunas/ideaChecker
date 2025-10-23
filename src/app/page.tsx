@@ -60,7 +60,7 @@ export default function Home() {
   const handleCopyAnalysis = async () => {
     if (!result) return;
     try {
-      await navigator.clipboard.writeText(`${result.analysis}\n\nScore: ${result.score}/100`);
+      await navigator.clipboard.writeText(`${result.analysis}\n\nScore: ${result.score.toFixed(1)}/10`);
       setCopySuccess(true);
       setTimeout(() => setCopySuccess(false), 2000);
     } catch (err) {
@@ -222,15 +222,15 @@ export default function Home() {
                 <h2 className="text-2xl font-bold">Verdict</h2>
                 <div className="flex items-center space-x-4">
                   <div className={`px-4 py-2 rounded-lg font-bold text-lg ${
-                    result.score >= 70 ? 'bg-green-500/20 text-green-400 border border-green-500/50' :
-                    result.score >= 50 ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/50' :
+                    result.score >= 7 ? 'bg-green-500/20 text-green-400 border border-green-500/50' :
+                    result.score >= 4 ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/50' :
                     'bg-red-500/20 text-red-400 border border-red-500/50'
                   }`}>
-                    {result.score >= 70 ? '✓ Strong' : result.score >= 50 ? '⚠ Moderate' : '✗ Weak'}
+                    {result.score >= 7 ? '✓ Strong' : result.score >= 4 ? '⚠ Moderate' : '✗ Weak'}
                   </div>
                   <div className="text-right">
-                    <div className="text-3xl font-bold text-white">{result.score}</div>
-                    <div className="text-sm text-gray-400">out of 100</div>
+                    <div className="text-3xl font-bold text-white">{result.score.toFixed(1)}</div>
+                    <div className="text-sm text-gray-400">out of 10</div>
                   </div>
                 </div>
               </div>
@@ -239,11 +239,11 @@ export default function Home() {
               <div className="mt-4 bg-gray-700 rounded-full h-3 overflow-hidden">
                 <div 
                   className={`h-full rounded-full transition-all duration-1000 ${
-                    result.score >= 70 ? 'bg-gradient-to-r from-green-500 to-green-400' :
-                    result.score >= 50 ? 'bg-gradient-to-r from-yellow-500 to-yellow-400' :
+                    result.score >= 7 ? 'bg-gradient-to-r from-green-500 to-green-400' :
+                    result.score >= 4 ? 'bg-gradient-to-r from-yellow-500 to-yellow-400' :
                     'bg-gradient-to-r from-red-500 to-red-400'
                   }`}
-                  style={{ width: `${result.score}%` }}
+                  style={{ width: `${(result.score / 10) * 100}%` }}
                 />
               </div>
             </div>

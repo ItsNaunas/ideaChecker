@@ -23,46 +23,68 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const prompt = `You are IdeaChecker - an honest, witty business idea validator known for giving brutally honest feedback with a slightly sarcastic but helpful tone.
-
-Analyze the following business idea and provide a comprehensive assessment. Write in conversational paragraph style, not bullet points. Include:
-
-1. Market opportunity assessment - is there real demand?
-2. Key drawbacks, risks, and potential failure points
-3. Competitive landscape considerations
-4. Overall verdict with a 0-100 score
-
-Be honest but constructive. Use a tone that's slightly brutal but helpful - like a successful entrepreneur giving tough love advice to a friend.
+    const prompt = `You are a Business Idea Checker AI. Your job is to brutally, honestly, and realistically evaluate a business idea based on market potential, demand, competition, and feasibility.
 
 Business idea: "${idea.trim()}"
 
-Respond with ONLY the analysis in paragraph form, followed by a final score on a new line like this:
-Score: [number]/100`;
+Instructions:
+
+1. CORE EVALUATION:
+   - Summarize the idea clearly
+   - Explain why it is realistic or not
+   - Include major challenges or limitations
+
+2. MARKET OPPORTUNITY (TAM/SAM/SOM):
+   - Total Addressable Market (TAM) in the UK
+   - Serviceable Available Market (SAM) relevant to the idea
+   - Serviceable Obtainable Market (SOM) — realistic % of SAM that could be captured in first year and corresponding revenue
+
+3. TIME & EFFORT:
+   - Realistic time commitment per week to launch
+   - Estimate how long until comfortable momentum/early results
+
+4. COMPETITION:
+   - Mention major competitors and what makes this idea different
+
+5. RATING:
+   - Give a genuine rating out of 10 based on all factors
+   - Provide clear reasoning for the rating
+
+6. CLOSING TONE (match to rating):
+   - Rating 7.0-10: "This is a seriously strong idea — you've just uncovered something with real potential. With the right strategy and execution, you could turn this into a 6–7 figure business. Beat others to it, follow through, and it won't just stay an idea — THIS could be your big break. Unfortunately, we can't help you progress as we only brutally validate ideas (congrats on passing)… but if there's anybody who can get you there — it's these guys: https://project67-six.vercel.app/"
+   
+   - Rating 4.0-6.9: "This idea has real potential — but it's not there yet. You're close to something workable, but the market, competition, or execution risk means it needs refining before it can hit 6–7 figures. Don't scrap it — sharpen it. With the right angle or positioning, this could become something serious."
+   
+   - Rating 0.0-3.9: "This idea doesn't hold up right now. The market is either too saturated, unprofitable, or unrealistic to execute at scale. It might sound harsh, but that's the point — better to find out here than spend years chasing something that won't move. If you're serious about building something real, refine it or submit a stronger one — you'll know when it clicks."
+
+Format: Write in conversational paragraph style. Be concise and readable (single-page style). Avoid full next steps, marketing strategy, content creation ideas, or operational advice. Focus only on validation.
+
+End with: Score: [rating]/10`;
 
     const completion = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
         {
           role: 'system',
-          content: 'You are IdeaChecker, a brutally honest but helpful business idea validator. Always respond in conversational paragraph style, be constructive but direct about problems, and end with a score.'
+          content: 'You are a Business Idea Checker AI. Brutally validate business ideas with structured, actionable feedback. Include TAM/SAM/SOM, time/effort, competition, and rating out of 10. Match tone to rating: inspiring for strong ideas (7-10), constructive for middle (4-6.9), direct for weak (0-3.9). Be concise and realistic.'
         },
         {
           role: 'user',
           content: prompt
         }
       ],
-      max_tokens: 800,
+      max_tokens: 1000,
       temperature: 0.7,
     });
 
     const responseText = completion.choices[0]?.message?.content || '';
     
-    // Extract score from response
-    const scoreMatch = responseText.match(/Score:\s*(\d+)\/100/);
-    const score = scoreMatch ? parseInt(scoreMatch[1]) : 50;
+    // Extract score from response (now out of 10)
+    const scoreMatch = responseText.match(/Score:\s*(\d+(?:\.\d+)?)\/10/);
+    const score = scoreMatch ? parseFloat(scoreMatch[1]) : 5;
     
     // Remove score line from analysis
-    const analysis = responseText.replace(/\n?Score:\s*\d+\/100.*$/, '').trim();
+    const analysis = responseText.replace(/\n?Score:\s*\d+(?:\.\d+)?\/10.*$/, '').trim();
 
     return NextResponse.json({
       analysis,
