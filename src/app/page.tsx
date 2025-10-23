@@ -115,12 +115,7 @@ export default function Home() {
           <div className="space-y-4">
             {/* Example Ideas */}
             <div className="mb-6">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="bg-gradient-to-r from-purple-500/20 to-blue-500/20 border border-purple-500/30 rounded-lg p-2">
-                  <span className="text-xl">💡</span>
-                </div>
-                <h3 className="text-base font-semibold text-gray-300">Need inspiration? Try one of these:</h3>
-              </div>
+              <h3 className="text-base font-semibold text-gray-300 text-center mb-4">Need inspiration? Try one of these:</h3>
               <div className="grid md:grid-cols-3 gap-3">
                 {exampleIdeas.map((example, idx) => (
                   <button
