@@ -40,7 +40,7 @@ Respond with ONLY the analysis in paragraph form, followed by a final score on a
 Score: [number]/100`;
 
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o',
+      model: 'gpt-4o-mini',
       messages: [
         {
           role: 'system',
