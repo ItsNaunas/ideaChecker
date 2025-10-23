@@ -106,20 +106,49 @@ export default function Home() {
 
         {/* Results */}
         {result && (
-          <div className="bg-backgroundSecondary border border-gray-700 rounded-2xl p-8 animate-fade-in">
-            <div className="mb-6">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold">Analysis Results</h2>
-                <div className="flex items-center space-x-2">
-                  <span className="text-sm text-textSecondary">Score:</span>
-                  <span className="text-2xl font-bold text-accent">{result.score}/100</span>
+          <div className="bg-backgroundSecondary border border-gray-700 rounded-2xl overflow-hidden animate-fade-in">
+            {/* Score Header */}
+            <div className="bg-gradient-to-r from-gray-800 to-gray-900 p-6 border-b border-gray-700">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold">Verdict</h2>
+                <div className="flex items-center space-x-4">
+                  <div className={`px-4 py-2 rounded-lg font-bold text-lg ${
+                    result.score >= 70 ? 'bg-green-500/20 text-green-400 border border-green-500/50' :
+                    result.score >= 50 ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/50' :
+                    'bg-red-500/20 text-red-400 border border-red-500/50'
+                  }`}>
+                    {result.score >= 70 ? '✓ Strong' : result.score >= 50 ? '⚠ Moderate' : '✗ Weak'}
+                  </div>
+                  <div className="text-right">
+                    <div className="text-3xl font-bold text-white">{result.score}</div>
+                    <div className="text-sm text-gray-400">out of 100</div>
+                  </div>
                 </div>
               </div>
+              
+              {/* Score Bar */}
+              <div className="mt-4 bg-gray-700 rounded-full h-3 overflow-hidden">
+                <div 
+                  className={`h-full rounded-full transition-all duration-1000 ${
+                    result.score >= 70 ? 'bg-gradient-to-r from-green-500 to-green-400' :
+                    result.score >= 50 ? 'bg-gradient-to-r from-yellow-500 to-yellow-400' :
+                    'bg-gradient-to-r from-red-500 to-red-400'
+                  }`}
+                  style={{ width: `${result.score}%` }}
+                />
+              </div>
             </div>
-            
-            <div className="prose prose-invert max-w-none">
-              <div className="whitespace-pre-wrap text-textSecondary leading-relaxed">
-                {result.analysis}
+
+            {/* Analysis Content */}
+            <div className="p-8">
+              <div className="prose prose-invert prose-lg max-w-none">
+                <div className="text-gray-300 leading-relaxed space-y-4">
+                  {result.analysis.split('\n\n').map((paragraph, idx) => (
+                    <p key={idx} className="text-base leading-7">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
