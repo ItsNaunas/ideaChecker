@@ -111,18 +111,27 @@ export default function Home() {
         </div>
 
         {/* Stats Section */}
-        <div className="grid grid-cols-3 gap-4 md:gap-8 mb-16 max-w-3xl mx-auto">
-          <div className="text-center p-4 bg-backgroundSecondary/50 border border-gray-700/50 rounded-2xl backdrop-blur-sm">
-            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-1">12K+</div>
-            <div className="text-xs md:text-sm text-gray-400">Ideas Validated</div>
+        <div className="mb-8 max-w-3xl mx-auto">
+          <div className="grid grid-cols-3 gap-4 md:gap-8 mb-6">
+            <div className="text-center p-4 bg-backgroundSecondary/50 border border-gray-700/50 rounded-2xl backdrop-blur-sm">
+              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-1">12K+</div>
+              <div className="text-xs md:text-sm text-gray-400">Ideas Validated</div>
+            </div>
+            <div className="text-center p-4 bg-backgroundSecondary/50 border border-gray-700/50 rounded-2xl backdrop-blur-sm">
+              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-1">&lt;30s</div>
+              <div className="text-xs md:text-sm text-gray-400">Average Time</div>
+            </div>
+            <div className="text-center p-4 bg-backgroundSecondary/50 border border-gray-700/50 rounded-2xl backdrop-blur-sm">
+              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-1">GPT-4</div>
+              <div className="text-xs md:text-sm text-gray-400">Powered</div>
+            </div>
           </div>
-          <div className="text-center p-4 bg-backgroundSecondary/50 border border-gray-700/50 rounded-2xl backdrop-blur-sm">
-            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-1">&lt;30s</div>
-            <div className="text-xs md:text-sm text-gray-400">Average Time</div>
-          </div>
-          <div className="text-center p-4 bg-backgroundSecondary/50 border border-gray-700/50 rounded-2xl backdrop-blur-sm">
-            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-1">GPT-4</div>
-            <div className="text-xs md:text-sm text-gray-400">Powered</div>
+          
+          {/* Trust Badge */}
+          <div className="text-center">
+            <p className="text-gray-400 text-sm">
+              Trusted by founders, indie hackers, and entrepreneurs worldwide 🌍
+            </p>
           </div>
         </div>
 
@@ -130,18 +139,30 @@ export default function Home() {
         <form onSubmit={handleSubmit} className="mb-12">
           <div className="space-y-4">
             {/* Example Ideas */}
-            <div className="mb-4">
-              <p className="text-sm text-gray-400 mb-3 font-medium">💡 Try an example:</p>
-              <div className="flex flex-wrap gap-2">
+            <div className="mb-6">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="bg-gradient-to-r from-purple-500/20 to-blue-500/20 border border-purple-500/30 rounded-lg p-2">
+                  <span className="text-xl">💡</span>
+                </div>
+                <h3 className="text-base font-semibold text-gray-300">Need inspiration? Try one of these:</h3>
+              </div>
+              <div className="grid md:grid-cols-3 gap-3">
                 {exampleIdeas.map((example, idx) => (
                   <button
                     key={idx}
                     type="button"
                     onClick={() => setIdea(example)}
                     disabled={loading}
-                    className="px-4 py-2 bg-gray-800/50 hover:bg-gray-700/50 border border-gray-600/50 rounded-lg text-sm text-gray-300 transition-all hover:border-gray-500 disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm"
+                    className="group p-4 bg-gradient-to-br from-gray-800/80 to-gray-900/80 hover:from-gray-700/80 hover:to-gray-800/80 border border-gray-600/50 hover:border-purple-500/50 rounded-xl text-left transition-all disabled:opacity-50 disabled:cursor-not-allowed backdrop-blur-sm hover:scale-[1.02]"
                   >
-                    {example.length > 50 ? example.substring(0, 50) + '...' : example}
+                    <div className="flex items-start gap-2">
+                      <svg className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5 group-hover:text-purple-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                      <span className="text-sm text-gray-300 group-hover:text-white transition-colors leading-snug">
+                        {example}
+                      </span>
+                    </div>
                   </button>
                 ))}
               </div>
