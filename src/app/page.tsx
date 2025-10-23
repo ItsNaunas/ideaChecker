@@ -110,31 +110,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Stats Section */}
-        <div className="mb-8 max-w-3xl mx-auto">
-          <div className="grid grid-cols-3 gap-4 md:gap-8 mb-6">
-            <div className="text-center p-4 bg-backgroundSecondary/50 border border-gray-700/50 rounded-2xl backdrop-blur-sm">
-              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-1">12K+</div>
-              <div className="text-xs md:text-sm text-gray-400">Ideas Validated</div>
-            </div>
-            <div className="text-center p-4 bg-backgroundSecondary/50 border border-gray-700/50 rounded-2xl backdrop-blur-sm">
-              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-1">&lt;30s</div>
-              <div className="text-xs md:text-sm text-gray-400">Average Time</div>
-            </div>
-            <div className="text-center p-4 bg-backgroundSecondary/50 border border-gray-700/50 rounded-2xl backdrop-blur-sm">
-              <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-1">GPT-4</div>
-              <div className="text-xs md:text-sm text-gray-400">Powered</div>
-            </div>
-          </div>
-          
-          {/* Trust Badge */}
-          <div className="text-center">
-            <p className="text-gray-400 text-sm">
-              Trusted by founders, indie hackers, and entrepreneurs worldwide 🌍
-            </p>
-          </div>
-        </div>
-
         {/* Input Form */}
         <form onSubmit={handleSubmit} className="mb-12">
           <div className="space-y-4">
@@ -177,6 +152,32 @@ export default function Home() {
               rows={6}
               disabled={loading}
             />
+
+            {/* Stats Section */}
+            <div className="py-6">
+              <div className="grid grid-cols-3 gap-4 md:gap-8 mb-4">
+                <div className="text-center p-3 bg-backgroundSecondary/50 border border-gray-700/50 rounded-2xl backdrop-blur-sm">
+                  <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-1">12K+</div>
+                  <div className="text-xs text-gray-400">Ideas Validated</div>
+                </div>
+                <div className="text-center p-3 bg-backgroundSecondary/50 border border-gray-700/50 rounded-2xl backdrop-blur-sm">
+                  <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-1">&lt;30s</div>
+                  <div className="text-xs text-gray-400">Average Time</div>
+                </div>
+                <div className="text-center p-3 bg-backgroundSecondary/50 border border-gray-700/50 rounded-2xl backdrop-blur-sm">
+                  <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-1">GPT-4</div>
+                  <div className="text-xs text-gray-400">Powered</div>
+                </div>
+              </div>
+              
+              {/* Trust Badge */}
+              <div className="text-center">
+                <p className="text-gray-400 text-xs md:text-sm">
+                  Trusted by founders, indie hackers, and entrepreneurs worldwide 🌍
+                </p>
+              </div>
+            </div>
+
             <div className="flex justify-between items-center">
               <p className="text-sm text-gray-500">
                 {idea.trim().length < 10 ? 'At least 10 characters required' : `${idea.trim().length} characters`}
