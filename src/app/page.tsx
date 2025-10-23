@@ -113,6 +113,16 @@ export default function Home() {
         {/* Input Form */}
         <form onSubmit={handleSubmit} className="mb-12">
           <div className="space-y-4">
+            <textarea
+              value={idea}
+              onChange={(e) => setIdea(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Describe your business idea in detail... Be specific about what problem you're solving and who your customers are. (Press Ctrl+Enter to submit)"
+              className="w-full p-6 text-lg bg-backgroundSecondary border border-gray-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none transition-all duration-300 placeholder-gray-500"
+              rows={6}
+              disabled={loading}
+            />
+
             {/* Example Ideas */}
             <div className="mb-6">
               <h3 className="text-base font-semibold text-gray-300 text-center mb-4">Need inspiration? Try one of these:</h3>
@@ -137,16 +147,6 @@ export default function Home() {
                 ))}
               </div>
             </div>
-
-            <textarea
-              value={idea}
-              onChange={(e) => setIdea(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Describe your business idea in detail... Be specific about what problem you're solving and who your customers are. (Press Ctrl+Enter to submit)"
-              className="w-full p-6 text-lg bg-backgroundSecondary border border-gray-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none transition-all duration-300 placeholder-gray-500"
-              rows={6}
-              disabled={loading}
-            />
 
             {/* Stats Section */}
             <div className="py-6">
