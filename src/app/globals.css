@@ -39,3 +39,20 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* Custom textarea placeholder styling */
+textarea::placeholder {
+  line-height: 1.5;
+}
+
+textarea::placeholder::first-line {
+  font-size: 1.125rem;
+}
+
+textarea::placeholder::after {
+  content: "Be specific about what problem you're solving, where and who your customers are.";
+  font-size: 0.875rem;
+  color: #6b7280;
+  display: block;
+  margin-top: 0.5rem;
+}

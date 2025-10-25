@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 interface IdeaResponse {
   analysis: string;
@@ -13,6 +13,7 @@ export default function Home() {
   const [result, setResult] = useState<IdeaResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copySuccess, setCopySuccess] = useState(false);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   const exampleIdeas = [
     'AI-powered meal planning app that generates recipes based on what\'s in your fridge',
@@ -43,6 +44,13 @@ export default function Home() {
 
       const data = await response.json();
       setResult(data);
+      
+      // Auto-scroll to results after a short delay
+      setTimeout(() => {
+        if (resultsRef.current) {
+          resultsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
@@ -81,8 +89,9 @@ export default function Home() {
     
     for (let i = 0; i < sections.length; i++) {
       if (i === 0 && sections[i].trim()) {
-        // Introduction paragraph
-        formatted.push({ type: 'intro', content: sections[i].trim() });
+        // Introduction paragraph with bold text parsing
+        const introContent = parseBoldText(sections[i].trim());
+        formatted.push({ type: 'intro', content: introContent });
       } else if (i % 2 === 1) {
         // Section header
         const header = sections[i];
@@ -96,12 +105,28 @@ export default function Home() {
         };
         
         const icon = sectionIcons[header] || '▸';
-        formatted.push({ type: 'section', header, content, icon });
+        const parsedContent = parseBoldText(content);
+        formatted.push({ type: 'section', header, content: parsedContent, icon });
         i++; // Skip next iteration since we consumed content
       }
     }
     
     return formatted;
+  };
+
+  const parseBoldText = (text: string) => {
+    const parts = text.split(/(\*\*[^*]+\*\*)/g);
+    return parts.map((part, index) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        const boldText = part.slice(2, -2);
+        return (
+          <span key={index} className="text-purple-400 font-semibold">
+            {boldText}
+          </span>
+        );
+      }
+      return part;
+    });
   };
 
   return (
@@ -130,7 +155,7 @@ export default function Home() {
             </h1>
 
             {/* Subheading */}
-            <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-4 leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-8 leading-relaxed">
               Get brutally honest, AI-powered feedback on your business idea in <span className="text-white font-semibold">under 30 seconds</span>
             </p>
             <p className="text-base text-gray-500 max-w-2xl mx-auto">
@@ -146,7 +171,7 @@ export default function Home() {
               value={idea}
               onChange={(e) => setIdea(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Describe your business idea in detail... Be specific about what problem you're solving and who your customers are. (Press Ctrl+Enter to submit)"
+              placeholder="Describe your business idea in detail...\nBe specific about what problem you're solving, where and who your customers are."
               className="w-full p-6 text-lg bg-backgroundSecondary border border-gray-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none transition-all duration-300 placeholder-gray-500"
               rows={6}
               disabled={loading}
@@ -244,7 +269,7 @@ export default function Home() {
 
         {/* Results */}
         {result && (
-          <div className="bg-backgroundSecondary border border-gray-700 rounded-2xl overflow-hidden animate-fade-in">
+          <div ref={resultsRef} className="bg-backgroundSecondary border border-gray-700 rounded-2xl overflow-hidden animate-fade-in">
             {/* Score Header */}
             <div className="bg-gradient-to-r from-gray-800 to-gray-900 p-6 border-b border-gray-700">
               <div className="flex items-center justify-between">
@@ -295,9 +320,9 @@ export default function Home() {
                         <span className="text-2xl">{section.icon}</span>
                         <h3 className="text-lg font-bold text-white">{section.header}</h3>
                       </div>
-                      <p className="text-gray-300 text-base leading-7">
+                      <div className="text-gray-300 text-base leading-7">
                         {section.content}
-                      </p>
+                      </div>
                     </div>
                   );
                 })}
