@@ -14,10 +14,12 @@ export const metadata: Metadata = {
     template: "%s | IdeaChecker"
   },
   description: "Get honest, brutal feedback on your business ideas with AI-powered analysis. Validate market opportunity, identify risks, and get actionable insights in under 30 seconds. Trusted by 12K+ entrepreneurs.",
-  keywords: ["IdeaChecker", "idea checker", "business ideas", "startup validation", "AI analysis", "entrepreneurship", "market research", "startup ideas", "business validation tool"],
+  keywords: ["IdeaChecker", "idea checker", "business idea validator", "startup validator", "idea validation tool", "business idea checker", "validate startup idea", "AI business validation", "startup idea analyzer", "business concept validator", "entrepreneur tool", "startup tool", "business validation software", "idea analyzer", "concept validator"],
   authors: [{ name: "IdeaChecker" }],
   creator: "IdeaChecker",
   publisher: "IdeaChecker",
+  category: "Business Tools",
+  classification: "Business Idea Validation",
   robots: {
     index: true,
     follow: true,
@@ -37,9 +39,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: '/favicon.png',
-        width: 512,
-        height: 512,
-        alt: 'IdeaChecker Logo',
+        width: 1200,
+        height: 630,
+        alt: 'IdeaChecker - AI-Powered Business Idea Validation',
       },
     ],
   },
@@ -52,6 +54,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
+  manifest: '/manifest.json',
   verification: {
     google: 'your-google-verification-code', // Replace with actual Google Search Console code
   },
@@ -62,7 +65,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const jsonLd = {
+  const webAppSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
     name: 'IdeaChecker',
@@ -89,12 +92,26 @@ export default function RootLayout({
     ],
   };
 
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'IdeaChecker',
+    url: 'https://ideachecker.vercel.app',
+    logo: 'https://ideachecker.vercel.app/favicon.png',
+    description: 'AI-powered business idea validation tool that helps entrepreneurs validate their startup ideas instantly',
+    sameAs: [],
+  };
+
   return (
     <html lang="en" className={inter.variable}>
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
       <body className="font-sans antialiased">

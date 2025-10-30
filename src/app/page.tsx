@@ -131,6 +131,21 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-text">
+      {/* Navigation */}
+      <nav className="border-b border-gray-700 bg-background/80 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4 max-w-5xl flex items-center justify-between">
+          <a href="/" className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+            IdeaChecker
+          </a>
+          <div className="flex gap-6">
+            <a href="/" className="text-gray-300 hover:text-white transition-colors">Home</a>
+            <a href="/about" className="text-gray-300 hover:text-white transition-colors">About</a>
+            <a href="/how-it-works" className="text-gray-300 hover:text-white transition-colors">How It Works</a>
+            <a href="/examples" className="text-gray-300 hover:text-white transition-colors">Examples</a>
+          </div>
+        </div>
+      </nav>
+
       <main className="container mx-auto px-4 py-12 md:py-20 max-w-5xl">
         {/* Enhanced Hero Section */}
         <div className="relative mb-20">
@@ -364,11 +379,147 @@ export default function Home() {
           </div>
         )}
 
-        {/* Footer */}
-        <footer className="text-center mt-16 pt-8 border-t border-gray-700">
-          <p className="text-textSecondary mb-4">
-            If your idea comes back strong, build it before somebody else does.
+        {/* How It Works Section */}
+        <section className="my-20">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">How IdeaChecker Works</h2>
+          <p className="text-lg text-gray-400 text-center mb-12 max-w-3xl mx-auto">
+            IdeaChecker uses advanced AI to analyze your business concept, evaluate market potential, 
+            assess competition, and provide actionable feedback within seconds.
           </p>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-3xl font-bold">
+                1
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-white">Submit Your Idea</h3>
+              <p className="text-gray-300">
+                Describe your business concept in detail—what problem you're solving and your proposed solution.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-3xl font-bold">
+                2
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-white">AI Analysis</h3>
+              <p className="text-gray-300">
+                Our GPT-4 powered system analyzes your idea across multiple dimensions instantly.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-3xl font-bold">
+                3
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-white">Get Feedback</h3>
+              <p className="text-gray-300">
+                Receive instant results with a score and detailed, actionable insights.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Why Use Section */}
+        <section className="my-20">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Why Use IdeaChecker?</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <article className="p-6 bg-backgroundSecondary border border-gray-700 rounded-xl hover:border-purple-500/50 transition-all">
+              <h3 className="text-xl font-bold mb-3 text-purple-400">Save Time & Money</h3>
+              <p className="text-gray-300">
+                Validate ideas before investing resources in development and marketing. Get honest feedback instantly without expensive consultants.
+              </p>
+            </article>
+            <article className="p-6 bg-backgroundSecondary border border-gray-700 rounded-xl hover:border-purple-500/50 transition-all">
+              <h3 className="text-xl font-bold mb-3 text-purple-400">Get Honest Feedback</h3>
+              <p className="text-gray-300">
+                AI provides unbiased analysis without fluff or sugar-coating. No friends telling you what you want to hear.
+              </p>
+            </article>
+            <article className="p-6 bg-backgroundSecondary border border-gray-700 rounded-xl hover:border-purple-500/50 transition-all">
+              <h3 className="text-xl font-bold mb-3 text-purple-400">Powered by GPT-4</h3>
+              <p className="text-gray-300">
+                Advanced AI technology trained on business data and market patterns delivers accurate, actionable insights.
+              </p>
+            </article>
+            <article className="p-6 bg-backgroundSecondary border border-gray-700 rounded-xl hover:border-purple-500/50 transition-all">
+              <h3 className="text-xl font-bold mb-3 text-purple-400">Completely Free</h3>
+              <p className="text-gray-300">
+                Access professional-grade validation without cost or credit card. Just honest feedback when you need it.
+              </p>
+            </article>
+            <article className="p-6 bg-backgroundSecondary border border-gray-700 rounded-xl hover:border-purple-500/50 transition-all">
+              <h3 className="text-xl font-bold mb-3 text-purple-400">Instant Results</h3>
+              <p className="text-gray-300">
+                No waiting for expert reviews or market research. Get comprehensive analysis in under 30 seconds.
+              </p>
+            </article>
+            <article className="p-6 bg-backgroundSecondary border border-gray-700 rounded-xl hover:border-purple-500/50 transition-all">
+              <h3 className="text-xl font-bold mb-3 text-purple-400">Actionable Insights</h3>
+              <p className="text-gray-300">
+                Not just a score—get specific feedback on what works, what doesn't, and how to improve your concept.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="my-20">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
+          <div className="max-w-4xl mx-auto space-y-4">
+            <details className="bg-backgroundSecondary border border-gray-700 rounded-xl p-6 hover:border-purple-500/50 transition-all">
+              <summary className="text-xl font-bold text-white cursor-pointer">What is IdeaChecker?</summary>
+              <p className="text-gray-300 mt-4 leading-relaxed">
+                IdeaChecker is a free AI-powered tool that validates business ideas by analyzing market opportunity, competition, and potential success factors. Get honest feedback on your startup concept in under 30 seconds.
+              </p>
+            </details>
+            <details className="bg-backgroundSecondary border border-gray-700 rounded-xl p-6 hover:border-purple-500/50 transition-all">
+              <summary className="text-xl font-bold text-white cursor-pointer">How accurate is the analysis?</summary>
+              <p className="text-gray-300 mt-4 leading-relaxed">
+                Our AI uses GPT-4 and comprehensive market data to provide highly accurate assessments based on proven business metrics. While no tool is 100% accurate, we provide valuable insights to guide your decision-making.
+              </p>
+            </details>
+            <details className="bg-backgroundSecondary border border-gray-700 rounded-xl p-6 hover:border-purple-500/50 transition-all">
+              <summary className="text-xl font-bold text-white cursor-pointer">How long does validation take?</summary>
+              <p className="text-gray-300 mt-4 leading-relaxed">
+                The entire validation process takes under 30 seconds. Simply submit your idea description and receive instant analysis with a score and detailed feedback.
+              </p>
+            </details>
+            <details className="bg-backgroundSecondary border border-gray-700 rounded-xl p-6 hover:border-purple-500/50 transition-all">
+              <summary className="text-xl font-bold text-white cursor-pointer">Is IdeaChecker really free?</summary>
+              <p className="text-gray-300 mt-4 leading-relaxed">
+                Yes! IdeaChecker is completely free to use. No credit card required, no hidden fees, no premium tiers. We believe every entrepreneur deserves access to quality validation resources.
+              </p>
+            </details>
+            <details className="bg-backgroundSecondary border border-gray-700 rounded-xl p-6 hover:border-purple-500/50 transition-all">
+              <summary className="text-xl font-bold text-white cursor-pointer">What factors does the AI analyze?</summary>
+              <p className="text-gray-300 mt-4 leading-relaxed">
+                Our AI evaluates market opportunity, competition level, execution difficulty, idea clarity, uniqueness, and potential for success. Each analysis includes specific feedback on these dimensions.
+              </p>
+            </details>
+            <details className="bg-backgroundSecondary border border-gray-700 rounded-xl p-6 hover:border-purple-500/50 transition-all">
+              <summary className="text-xl font-bold text-white cursor-pointer">Should I rely solely on IdeaChecker?</summary>
+              <p className="text-gray-300 mt-4 leading-relaxed">
+                While IdeaChecker provides valuable insights, it's best used as one tool in your validation toolkit. Combine it with market research, customer interviews, and expert advice for comprehensive understanding.
+              </p>
+            </details>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="mt-16 pt-8 border-t border-gray-700">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
+            <div className="text-center md:text-left">
+              <p className="text-textSecondary mb-2">
+                If your idea comes back strong, build it before somebody else does.
+              </p>
+              <p className="text-sm text-gray-500">
+                © 2024 IdeaChecker. All rights reserved.
+              </p>
+            </div>
+            <div className="flex gap-6 text-sm">
+              <a href="/about" className="text-gray-400 hover:text-white transition-colors">About</a>
+              <a href="/how-it-works" className="text-gray-400 hover:text-white transition-colors">How It Works</a>
+              <a href="/examples" className="text-gray-400 hover:text-white transition-colors">Examples</a>
+            </div>
+          </div>
           {/* <a
             href="https://project67-six.vercel.app/"
             target="_blank"

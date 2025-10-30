@@ -1,0 +1,19 @@
+{
+  "name": "IdeaChecker - AI-Powered Business Idea Validation",
+  "short_name": "IdeaChecker",
+  "description": "Get honest, brutal feedback on your business ideas with AI-powered analysis in under 30 seconds",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#8b5cf6",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
+
