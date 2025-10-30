@@ -17,6 +17,9 @@ export const metadata: Metadata = {
     description: "Get honest, brutal feedback on your business ideas with AI-powered analysis.",
     type: "website",
   },
+  icons: {
+    icon: '/favicon.png',
+  },
 };
 
 export default function RootLayout({
