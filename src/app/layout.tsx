@@ -52,14 +52,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
-  icons: {
-    icon: [
-      { url: '/favicon.png', sizes: 'any' },
-    ],
-    apple: [
-      { url: '/favicon.png', sizes: '180x180', type: 'image/png' },
-    ],
-  },
   verification: {
     google: 'your-google-verification-code', // Replace with actual Google Search Console code
   },
