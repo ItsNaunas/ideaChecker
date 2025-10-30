@@ -151,7 +151,7 @@ export default function Home() {
 
             {/* Main Heading */}
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent leading-tight">
-              Stop Guessing.<br />Start Validating.
+              Validate Your Business Ideas with IdeaChecker
             </h1>
 
             {/* Subheading */}
@@ -224,7 +224,7 @@ export default function Home() {
             </div>
 
             {/* Stats Section */}
-            <div className="py-6">
+            <section className="py-6" aria-label="Platform Statistics">
               <div className="grid grid-cols-3 gap-4 md:gap-8 mb-4">
                 <div className="text-center p-3 bg-backgroundSecondary/50 border border-gray-700/50 rounded-2xl backdrop-blur-sm">
                   <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-1">12K+</div>
@@ -246,7 +246,7 @@ export default function Home() {
                   Trusted by founders, indie hackers, and entrepreneurs worldwide 🌍
                 </p>
               </div>
-            </div>
+            </section>
           </div>
         </form>
 
